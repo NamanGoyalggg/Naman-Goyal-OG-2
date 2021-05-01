@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!-- saved from url=(0012)about:srcdoc -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js" crossorigin=""></script>
+<script src="https://assets.editor.p5js.org/5f97ecb58aded00020c16ea5/96b7c429-6ef6-4735-9f07-6a88c3564d79.js" crossorigin=""></script>
+    
+    
+
+  <!--<base href="https://editor.p5js.org/click4namanggg/sketches/dFTTsU7j4/">--><base href="."><style>
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+}
+</style><script src="https://editor.p5js.org/previewScripts.js"></script><style data-emotion=""></style><script>
+    function getScriptOff(line) {
+      var offs = [[72,"sketch"]];
+      var l = 0;
+      var file = '';
+      for (var i=0; i<offs.length; i++) {
+        var n = offs[i][0];
+        if (n < line && n > l) {
+          l = n;
+          file = offs[i][1];
+        }
+      }
+      return [line - l, file];
+    }
+    // catch reference errors, via http://stackoverflow.com/a/12747364/2994108
+    window.onerror = function (msg, url, lineNumber, columnNo, error) {
+        var string = msg.toLowerCase();
+        var substring = "script error";
+        var data = {};
+        if (url.match(/^(http:\/\/|https:\/\/)/) !== null && error.stack){
+          var errorNum = error.stack.split('about:srcdoc:')[1].split(':')[0];
+          var fileInfo = getScriptOff(errorNum);
+          data = msg + ' (' + fileInfo[1] + ': line ' + fileInfo[0] + ')';
+        } else {
+          var fileInfo = getScriptOff(lineNumber);
+          data = msg + ' (' + fileInfo[1] + ': line ' + fileInfo[0] + ')';
+        }
+        window.parent.postMessage([{
+          log: [{
+            method: 'error',
+            data: [data],
+            id: Date.now().toString()
+          }],
+          source: fileInfo[1]
+        }], '*');
+      return false;
+    };
+    // catch rejected promises
+    window.onunhandledrejection = function (event) {
+      if (event.reason && event.reason.message && event.reason.stack){
+        var errorNum = event.reason.stack.split('about:srcdoc:')[1].split(':')[0];
+        var fileInfo = getScriptOff(errorNum);
+        var data = event.reason.message + ' (' + fileInfo[1] + ': line ' + fileInfo[0] + ')';
+        window.parent.postMessage([{
+          log: [{
+            method: 'error',
+            data: [data],
+            id: Date.now().toString()
+          }],
+          source: fileInfo[1]
+        }], '*');
+      }
+    };
+  </script></head>
+  <body>
+      <script data-tag="@fs-sketch.js">
+
+var bow , arrow, green_balloon, red_balloon ,pink_balloon ,blue_balloon, background;
+var bowImage, arrowImage, green_balloonImage, red_balloonImage, pink_balloonImage ,blue_balloonImage, backgroundImage;
+var cloud, cloud1
+var score=0
+
+
+
+function preload(){
+  
+  backgroundImage = loadImage("https://assets.editor.p5js.org/5f97ecb58aded00020c16ea5/180c4e34-b9a0-42c8-a425-4eab2db8fc97.png");
+  
+  arrowImage = loadImage("https://assets.editor.p5js.org/5f97ecb58aded00020c16ea5/a5527563-8598-4a1a-b066-c0c24268a8b9.png");
+  bowImage = loadImage("https://assets.editor.p5js.org/5f97ecb58aded00020c16ea5/571b7eb1-251d-40d1-a141-df79fc791205.png");
+  red_balloonImage = loadImage("https://assets.editor.p5js.org/5f97ecb58aded00020c16ea5/bcbabcd6-b23a-48ff-a039-075570cd8490.png");
+  green_balloonImage = loadImage("https://assets.editor.p5js.org/5f97ecb58aded00020c16ea5/aa6eabcb-d65e-4644-b639-7f4f1477ab19.png");
+  pink_balloonImage = loadImage("https://assets.editor.p5js.org/5f97ecb58aded00020c16ea5/1ad82bd8-1943-4017-80ee-8e92f91b9f85.png");
+  blue_balloonImage = loadImage("https://assets.editor.p5js.org/5f97ecb58aded00020c16ea5/6cf147e5-5ebe-4a03-996a-67b08230f627.png");
+  cloud1 = loadImage("https://assets.editor.p5js.org/5f97ecb58aded00020c16ea5/4f287c4b-b38c-45a6-8961-5a8a145e3ead.png");
+  
+} 
+
+function setup() {
+  createCanvas(600, 600);
+  
+  //creating background
+  background = createSprite(0,0,600,600);
+  background.addImage(backgroundImage);
+  background.scale = 2.5
+  
+  // creating bow to shoot arrow
+  bow = createSprite(480,220,20,50);
+  bow.addImage(bowImage); 
+  bow.scale = 1;
+  
+  balloonGroup = new Group();
+  arrowGroup = new Group();
+  
+}
+  
+//  red_balloon = createSprite(50, 180, 1, 1);
+// red_balloon.addImage(red_balloonImage)
+//   red_balloon.scale = 0.1
+  
+  //create line of red balloons using for 
+function redbbb(){
+red_balloon = createSprite(50,Math.round(random(40,370)), 1, 1);
+  red_balloon.addImage(red_balloonImage);
+  red_balloon.scale = 0.1
+  red_balloon.velocityX=5
+  red_balloon.lifetime=100
+   balloonGroup.add(red_balloon)
+}
+  
+
+//create line of green balloons using for loop
+function abbb(){
+  green_balloon = createSprite(100, Math.round(random(40,370)), 10, 10);
+  green_balloon.addImage(green_balloonImage);
+  green_balloon.scale = 0.1;
+  green_balloon.velocityX=5
+  green_balloon.lifetime=100
+  balloonGroup.add(green_balloon)
+}
+
+  
+//create line of blue balloons using for loop
+  function cbbb(){
+  blue_balloon = createSprite(140,Math.round(random(40,370)), 10, 10);
+  blue_balloon.addImage(blue_balloonImage);
+  blue_balloon.scale=0.1;
+  blue_balloon.velocityX=5
+  blue_balloon.lifetime=100
+     balloonGroup.add(blue_balloon)
+  }
+
+  
+  //create line of purple balloons using for loop
+function dbbb(){
+  pink_balloon = createSprite(180, Math.round(random(40,370)), 10, 10);
+  pink_balloon.addImage(pink_balloonImage);
+  pink_balloon.scale = 1.2;
+  pink_balloon.velocityX=5
+  pink_balloon.lifetime=100
+  balloonGroup.add(pink_balloon)
+}
+
+ 
+
+
+function draw() {
+  // moving ground
+    background.velocityX = -3 
+
+    if (background.x < 0){
+      background.x = background.width/2;
+    }
+  
+  //moving bow
+  bow.y = World.mouseY
+  var select=Math.round(random(1,4))
+    if(frameCount%40==0){
+     if(select==1){
+       redbbb()
+     } 
+      else if(select==2){
+        abbb()
+      }
+       else if(select==3){
+        cbbb()
+      }
+       else if(select==4){
+        dbbb()
+      }
+      
+    }
+   // release arrow when space key is pressed
+  if (keyDown("space")) {
+ createArrow();
+
+  }
+  if (balloonGroup.isTouching(arrowGroup)){
+    balloonGroup.destroyEach()
+    arrowGroup.destroyEach()
+    score=score+1
+  }
+  drawSprites();
+  textSize(20)
+  fill("blue")
+  text("score="+score,250,50)
+  
+}
+
+// Creating  arrows for bow
+function createArrow() {
+  arrow= createSprite(360, 100, 5, 10);
+arrow.addImage(arrowImage);
+arrow.y = bow.y;
+  arrow.velocityX = -6;
+  arrow.scale = 0.3;
+  arrow.lifetime=100  
+arrowGroup.add(arrow)
+}
+//function to spawn the clouds
+function spawnClouds(){
+  if(frameCount%60==0){
+  cloud=createSprite(200,100,40,10)
+    cloud.y=Math.round(random(10,60))
+  cloud.addImage("label",cloud1)
+  cloud.velocityX=-5  
+  }}
+
+ 
+
+</script>
+  
+
+<canvas id="defaultCanvas0" class="p5Canvas" width="1200" height="1200" style="width: 600px; height: 600px;"></canvas></body></html>
